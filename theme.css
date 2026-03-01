@@ -1,247 +1,118 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Cinzel:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /**
- * @name Makima Dominance
+ * @name Makima Dominance – Vencord Stable Glass
  * @author s0uth09
- * @description Chainsaw Man - Makima theme
+ * @version 1.3
+ * @description Tuned specifically for Vencord: stable wallpaper, no blackout root, and cleaner Makima glass.
  */
 
 :root {
-  --bg-image: url('https://raw.githubusercontent.com/s0uth09/Makima-Discord-Theme/main/wallpaper.jpg');
-  --p1:  #8b0000;
-  --p2:  rgba(139,0,0,0.5);
-  --p3:  rgba(80,0,0,0.6);
-  --p4:  rgba(80,0,0,0.35);
-  --s1:  rgba(20,20,20,0.35);
-  --s2:  rgba(40,40,40,0.55);
-  --s3:  rgba(10,10,10,0.72);
-  --s4:  rgba(10,10,10,0.4);
-  --text: #e8e8e8;
+  --bg: url('https://raw.githubusercontent.com/s0uth09/Makima-Discord_theme/main/wallpaper.jpg');
+  --bg-fallback: linear-gradient(155deg, #14060b 0%, #1a080f 50%, #0a0306 100%);
+
+  --glass: rgba(20, 6, 10, 0.48);
+  --glass-dark: rgba(12, 4, 7, 0.78);
+
+  --red-hover: rgba(210, 35, 35, 0.62);
+  --red-soft: rgba(210, 35, 35, 0.28);
+
+  --blur-main: 14px;
+  --blur-soft: 10px;
+  --radius: 14px;
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   WALLPAPER
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#app-mount {
-  background: var(--bg-image);
-  background-position: center top;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
-#app-mount .bg__960e4,
-#app-mount .app__160d8 {
-  background-color: var(--s4);
-}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   CHAT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#app-mount .chatContent_f75fb0,
-#app-mount .chat_f75fb0,
-#app-mount .chatContent_f75fb0 .wrapper_d852db,
-#app-mount .chatContent_f75fb0 .wrapper_d852db .wrapper_fc8177,
-#app-mount .channelChatWrapper_cb9592,
-#app-mount .chat_f75fb0 .header__0b563,
-#app-mount .chat_f75fb0 .content_f75fb0,
-#app-mount .chat_f75fb0 .pageBody__41ed7 {
+/* ===================== BEZPIECZNY ROOT (VENCORD) ===================== */
+html,
+body,
+#app-mount,
+[class*="app-"],
+[class*="layers-"] {
   background: transparent !important;
 }
 
-/* Message bubbles */
-#app-mount .message__5126c.cozyMessage__5126c .container_b7e1cb,
-#app-mount .message__5126c.cozyMessage__5126c .contents_c19a55 {
-  background-color: var(--s1);
-  padding: 5px 0px 5px 20px;
+/* Wallpaper on mount to avoid random layer regressions */
+#app-mount {
+  background-image: var(--bg), var(--bg-fallback) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
 }
 
-/* Message input */
-#app-mount .form_f75fb0 .wrapper__44df5,
-#app-mount .form_f75fb0 .scrollableContainer__74017 {
-  background-color: var(--s3);
-  border-top: 1px solid rgba(139,0,0,0.25);
-}
-#app-mount .form_f75fb0 .channelTextArea_f75fb0 {
-  background-color: transparent;
+/* Darken app very lightly for readability (not blackout) */
+#app-mount > div,
+[class*="layers-"],
+[class*="app-"] {
+  background: rgba(0, 0, 0, 0.30) !important;
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   CHANNEL HEADER
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#app-mount [class*="header_"],
-#app-mount [class*="headerBar_"],
-#app-mount [class*="toolbar_"],
-#app-mount .header_f75fb0 {
-  background-color: rgba(8,8,8,0.60) !important;
-  backdrop-filter: blur(8px) !important;
-  border-bottom: 1px solid rgba(139,0,0,0.4) !important;
+/* Remove opaque defaults that hide wallpaper */
+[class*="bg-"],
+[class*="theme-dark"],
+[class*="container__"] {
+  background-color: transparent !important;
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SIDEBAR
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#app-mount .sidebarList__5e434.sidebarListRounded__5e434 .privateChannels_e6b769,
-#app-mount .sidebarList__5e434.sidebarListRounded__5e434 .privateChannels_e6b769 .scroller__99e7c,
-#app-mount .sidebarList__5e434.sidebarListRounded__5e434 .container__2637a {
-  background-color: transparent;
+/* ===================== GLASS: SIDEBAR / DMS / PROFILE ===================== */
+[class*="privateChannels"],
+[class*="sidebar"],
+.sidebar_ded4b2,
+[class*="userPopout"],
+[class*="topSection"],
+[class*="root_"] {
+  background: var(--glass-dark) !important;
+  backdrop-filter: blur(var(--blur-main)) saturate(115%) !important;
+  -webkit-backdrop-filter: blur(var(--blur-main)) saturate(115%) !important;
+  border-radius: var(--radius);
 }
 
-#app-mount .channel__972a0:hover,
-#app-mount .interactive-1vLZ_I.interactiveSelected__972a0 {
-  background-color: var(--s2);
+[class*="wrapper__"],
+[class*="containerDefault__"],
+[class*="interactive__"],
+[class*="channel-"] {
+  background: var(--glass) !important;
+  backdrop-filter: blur(var(--blur-soft)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-soft)) !important;
+  border-radius: 12px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#app-mount .privateChannelsHeaderContainer__99e7c {
-  background-color: var(--p3);
-  padding: 12px;
-  border-radius: 8px;
+[class*="selected"] [class*="wrapper__"],
+[class*="interactive__"]:hover {
+  background: var(--red-soft) !important;
+  box-shadow: 0 0 14px rgba(210, 35, 35, 0.35);
 }
 
-#app-mount .containerDefault_c69b6d .wrapper__2ea32 {
-  background-color: var(--s1);
-  border-radius: 6px 0 0 6px;
-}
-#app-mount .containerDefault_c69b6d .wrapper__2ea32:hover,
-#app-mount .containerDefault_c69b6d.selected_c69b6d .wrapper__2ea32 {
-  background-color: var(--s2);
-  border-left: 2px solid var(--p1);
-}
-
-#app-mount .panels__5e434 {
-  background-color: var(--s3);
-  border-top: 1px solid rgba(139,0,0,0.3);
-}
-#app-mount .sidebar__5e434::after {
-  background-color: transparent;
+/* ===================== CHAT / HEADER / MEMBERS ===================== */
+[class*="chat-"],
+[class*="messagesWrapper"],
+[class*="members-"],
+[class*="membersWrap"] {
+  background: var(--glass-dark) !important;
+  backdrop-filter: blur(var(--blur-soft)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-soft)) !important;
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SERVER ICON BAR
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#app-mount .wrapper_ef3116.guilds__5e434 {
-  background-color: rgba(5,5,5,0.55);
-  border-right: 1px solid rgba(139,0,0,0.2);
+[class*="channelTextArea"],
+[class*="form-"] {
+  background: var(--glass) !important;
+  backdrop-filter: blur(var(--blur-main)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-main)) !important;
+  border-radius: var(--radius);
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   MEMBERS LIST
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#app-mount .container_c8ffbb,
-#app-mount .members_c8ffbb {
-  background-color: transparent;
-}
-#app-mount .member__5d473 {
-  background-color: var(--s1);
-  border-radius: 6px;
-}
-#app-mount .member__5d473:hover {
-  background-color: var(--s2);
+/* ===================== MODALS / POPOUTS ===================== */
+[class*="modal"],
+[class*="layerContainer"],
+[class*="popout"] {
+  background: rgba(18, 6, 10, 0.78) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border-radius: var(--radius);
 }
 
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SETTINGS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#app-mount .standardSidebarView__23e6b,
-#app-mount .sidebarRegion__23e6b,
-#app-mount .contentRegion__23e6b,
-#app-mount .layer__960e4,
-#app-mount .contentRegionScroller__23e6b,
-#app-mount .sidebarRegionScroller__23e6b {
-  background-color: transparent;
-}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   MODALS / POPOUTS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#app-mount .modal__4f3da,
-#app-mount .browser_d98031,
-#app-mount .menu_c1e9c4,
-#app-mount .messagesPopoutWrap_e8b59c {
-  background-color: var(--s3);
-  border-radius: 8px;
-  border: 1px solid rgba(139,0,0,0.3);
-}
-
-#app-mount .root__49fc1 {
-  background-color: var(--s3);
-  border-radius: 8px;
-  box-shadow: 0 0 30px rgba(139,0,0,0.4);
-}
-#app-mount .header__49fc1 {
-  background-color: var(--p3);
-  border-radius: 8px 8px 0 0;
-}
-#app-mount .footer__49fc1 {
-  background-color: var(--s2);
-  border-radius: 0 0 8px 8px;
-}
-
-#app-mount .autocomplete__13533 {
-  background-color: var(--s3);
-  border: 1px solid rgba(139,0,0,0.3);
-}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   TYPOGRAPHY
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#app-mount h1, #app-mount h2, #app-mount h3,
-#app-mount [class*="heading"],
-#app-mount [class*="title_"] {
-  font-family: 'Cinzel', 'Cormorant Garamond', serif !important;
-  font-weight: 700 !important;
-  letter-spacing: 2px !important;
-  color: #c0c0c0 !important;
-  text-shadow: 0 0 12px rgba(139,0,0,0.8) !important;
-}
-
-#app-mount [class*="username"],
-#app-mount [class*="userTag"] {
-  color: #cc2200 !important;
-  font-weight: bold !important;
-}
-
-#app-mount a[target="_blank"] { color: #8b0000; }
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ACCENTS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#app-mount .numberBadge__2b1f5 {
-  background-color: var(--p1) !important;
-}
-
-#app-mount .mention,
-#app-mount .mentioned__5126c {
-  background-color: var(--p3);
-  border-left: 3px solid var(--p1);
-}
-
-#app-mount .newMessagesBar__0f481 {
-  background-color: var(--p1);
-}
-
-#app-mount .lookFilled__201d5:not(.colorWhite__201d5, .colorBrandInverted__201d5) {
-  background-color: var(--p1) !important;
-}
-#app-mount .lookFilled__201d5:not(.colorWhite__201d5, .colorBrandInverted__201d5):hover {
-  background-color: var(--p2) !important;
-}
-
-#app-mount .barFill_a562c8,
-#app-mount .container__3f21e.checked__3f21e {
-  background-color: var(--p1) !important;
-}
-
-/* Unread channel pill */
-#app-mount .unread__52a4b {
-  background-color: #cc0000 !important;
-}
-
-/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   SCROLLBARS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-#app-mount ::-webkit-scrollbar { width: 3px; }
-#app-mount ::-webkit-scrollbar-track { background: transparent; }
-#app-mount ::-webkit-scrollbar-thumb {
-  background-color: rgba(139,0,0,0.6);
-  border-radius: 3px;
+/* ===================== TYPOGRAPHY ===================== */
+body {
+  font-family: 'Inter', sans-serif !important;
 }
